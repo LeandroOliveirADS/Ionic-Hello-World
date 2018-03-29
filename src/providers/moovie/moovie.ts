@@ -11,13 +11,14 @@ import { Injectable } from '@angular/core';
 export class MoovieProvider {
 
   private baseApiPath = "https://api.themoviedb.org/3";
-  private apiKey:String = "1c83d2b941a698d23e279a3741ab4629";
+  private apiKey: String = "1c83d2b941a698d23e279a3741ab4629";
 
   constructor(public http: HttpClient) {
     console.log('Hello MoovieProvider Provider');
   }
 
-  getLatestMovies(){
+  getLatestMovies() {
+    console.log("API KEY:\n" + this.baseApiPath + "/movie/latest?api_key=" + this.apiKey);
     return this.http.get(this.baseApiPath + "/movie/latest?api_key=" + this.apiKey);
   }
 
