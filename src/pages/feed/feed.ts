@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MoovieProvider } from '../../providers/moovie/moovie';
 
-/**
- * Generated class for the FeedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-feed',
@@ -18,6 +11,9 @@ import { MoovieProvider } from '../../providers/moovie/moovie';
   ]
 })
 export class FeedPage {
+
+  public lista_filmes = new Array<any>();
+
 
   public objetoFeed = {
     titulo: "Leandro Oliveira",
@@ -37,16 +33,15 @@ export class FeedPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FeedPage');
-    this.movieProvider.getLatestMovies().subscribe(data => {
-      //const response = (data as any);
-      //const objeto_retorno = JSON.parse(response._body);
-      //console.log(objeto_retorno);
+    this.movieProvider.getLatestMovies().subscribe(
+      data => {
+        const response = (data as any);
+        this.lista_filmes = response.results;
 
-      console.log(data);
-    }, error => {
-      console.log("Data Erro: " + error);
-    }
+        console.log(response);
+      }, error => {
+        console.log("Data Erro: " + error);
+      }
     )
   }
 
