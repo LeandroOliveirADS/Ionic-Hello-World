@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MoovieProvider } from '../../providers/moovie/moovie';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,7 @@ import { MoovieProvider } from '../../providers/moovie/moovie';
 export class FeedPage {
 
   public lista_filmes = new Array<any>();
+  public loader;
 
 
   public objetoFeed = {
@@ -24,23 +26,40 @@ export class FeedPage {
     timeComment: "11h ago"
   }
 
-  public nomeSerie: String = "House of Cards";
+  abreCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando Filmes...",
+    });
+    this.loader.present();
+  }
+
+  fechaCarregando(){
+    this.loader.dismiss();
+  }
+
 
   public somarDoisNumeros(num1: number, num2: number): void {
     alert(num1 + num2);
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, private movieProvider: MoovieProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private movieProvider: MoovieProvider,
+    public loadingCtrl: LoadingController) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.abreCarregando();
     this.movieProvider.getLatestMovies().subscribe(
       data => {
         const response = (data as any);
         this.lista_filmes = response.results;
 
         console.log(response.results);
+        this.fechaCarregando();
       }, error => {
         console.log("Data Erro: " + error);
+        this.fechaCarregando();
       }
     )
   }
