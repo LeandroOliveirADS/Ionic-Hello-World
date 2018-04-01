@@ -15,6 +15,8 @@ export class FeedPage {
 
   public lista_filmes = new Array<any>();
   public loader;
+  public refresher;
+  public isRefreshing: boolean = false;
 
 
   public objetoFeed = {
@@ -33,7 +35,7 @@ export class FeedPage {
     this.loader.present();
   }
 
-  fechaCarregando(){
+  fechaCarregando() {
     this.loader.dismiss();
   }
 
@@ -49,6 +51,16 @@ export class FeedPage {
   }
 
   ionViewDidEnter() {
+    this.carregaListaFilmes();
+  }
+
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+    this.carregaListaFilmes();
+  }
+
+  carregaListaFilmes() {
     this.abreCarregando();
     this.movieProvider.getLatestMovies().subscribe(
       data => {
@@ -57,11 +69,18 @@ export class FeedPage {
 
         console.log(response.results);
         this.fechaCarregando();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.refresher = false;
+        }
       }, error => {
         console.log("Data Erro: " + error);
         this.fechaCarregando();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.refresher = false;
+        }
       }
     )
   }
-
 }
