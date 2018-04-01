@@ -20,6 +20,8 @@ import { FeedPage } from '../pages/feed/feed';
 import { PerfilPageModule } from '../pages/perfil/perfil.module';
 import { SobrePageModule } from '../pages/sobre/sobre.module';
 import { ConfiguracoesPageModule } from '../pages/configuracoes/configuracoes.module';
+import { FilmeDetalhePage } from '../pages/filme-detalhe/filme-detalhe';
+import { FilmeDetalhePageModule } from '../pages/filme-detalhe/filme-detalhe.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { ConfiguracoesPageModule } from '../pages/configuracoes/configuracoes.mo
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage    
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -37,17 +39,18 @@ import { ConfiguracoesPageModule } from '../pages/configuracoes/configuracoes.mo
     PerfilPageModule,
     SobrePageModule,
     ConfiguracoesPageModule,
+    FilmeDetalhePageModule,
     HttpModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
-  
+
   entryComponents: [
     MyApp,
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage    
+    TabsPage
   ],
   providers: [
     StatusBar,

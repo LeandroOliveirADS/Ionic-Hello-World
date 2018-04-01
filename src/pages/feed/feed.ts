@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MoovieProvider } from '../../providers/moovie/moovie';
 import { LoadingController } from 'ionic-angular';
+import { FilmeDetalhePage } from '../filme-detalhe/filme-detalhe';
 
 @IonicPage()
 @Component({
@@ -58,6 +59,11 @@ export class FeedPage {
     this.refresher = refresher;
     this.isRefreshing = true;
     this.carregaListaFilmes();
+  }
+
+  abrirDetalhes(filme) {
+    console.log(filme);
+    this.navCtrl.push(FilmeDetalhePage, { id: filme.id });
   }
 
   carregaListaFilmes() {
