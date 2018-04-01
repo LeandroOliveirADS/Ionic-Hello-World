@@ -38,7 +38,7 @@ export class FeedPage {
         const response = (data as any);
         this.lista_filmes = response.results;
 
-        console.log(response);
+        console.log(response.results);
       }, error => {
         console.log("Data Erro: " + error);
       }
